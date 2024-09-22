@@ -9,75 +9,16 @@ from langchain_community.document_loaders import YoutubeLoader, UnstructuredURLL
 st.set_page_config(page_title="LangChain: Summarize Text From YT or Website", 
                    page_icon="🦜", layout="wide")
 
-# Custom CSS for styling
-st.markdown("""
-    <style>
-        /* General Text Styling */
-        body, .stTextInput input, .stButton button, .stMarkdown, .stAlert, .stException, .title {
-            color: #333333 !important;
-        }
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f7f8fc;
-        }
-        .stApp {
-            background-color: #f0f2f6;
-        }
-        .title {
-            text-align: center;
-            font-size: 3rem;
-            font-weight: bold;
-            color: #333333 !important; /* Ensure the title color is applied */
-        }
-        .subtitle {
-            text-align: center;
-            font-size: 1.5rem;
-            color: #555555;
-            margin-bottom: 1rem;
-        }
-        .stButton button {
-            border-radius: 12px;
-            background-color: #0066cc;
-            color: white;
-            font-size: 1.2rem;
-            padding: 10px 20px;
-        }
-        .stButton button:hover {
-            background-color: #005bb5;
-        }
-        .sidebar .sidebar-content {
-            background-color: #dde1e7;
-            padding: 2rem;
-            border-radius: 10px;
-        }
-        .stTextInput input {
-            border-radius: 10px;
-            border: 2px solid #0066cc;
-            padding: 10px;
-            font-size: 1.1rem;
-            color: #333333;
-            background-color: #ffffff;
-        }
-        .stTextInput input::placeholder {
-            color: #808080;
-        }
-        .stAlert p {
-            font-size: 1.1rem;
-            color: #333333 !important;
-        }
-    </style>
-    """, unsafe_allow_html=True)
-
-# Title and Subtitle with Emojis
-st.markdown('<div class="title">🦜 LangChain: Summarize Text From YT or Website</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitle">Summarize URL</div>', unsafe_allow_html=True)
+# Title and Subtitle
+st.title("🦜 LangChain: Summarize Text From YT or Website")
+st.subheader("Summarize URL")
 
 ## Sidebar: Get the Groq API Key and URL (YT or website) to be summarized
 with st.sidebar:
-    st.markdown("## 🔐 Enter your Groq API Key")
+    st.header("🔐 Enter your Groq API Key")
     groq_api_key = st.text_input("Groq API Key", value="", type="password")
-    st.markdown("## 🌐 Enter the URL (YouTube or Website)")
-    generic_url = st.text_input("URL", label_visibility="collapsed", placeholder="https://example.com")
+    st.header("🌐 Enter the URL (YouTube or Website)")
+    generic_url = st.text_input("URL", placeholder="https://example.com")
 
 ## Gemma Model Using Groq API
 llm = ChatGroq(model="Gemma-7b-It", groq_api_key=groq_api_key)
