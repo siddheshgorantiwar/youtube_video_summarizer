@@ -50,11 +50,16 @@ if st.button("✨ Summarize the Content from YT or Website"):
                     )
                 docs = loader.load()
 
-                # Chain for Summarization
-                chain = load_summarize_chain(llm, chain_type="stuff", prompt=prompt)
-                output_summary = chain.run(docs)
-
-                st.success("✅ Summary Generated Successfully!")
-                st.markdown(f"### 📄 Summary:\n{output_summary}")
+                if not docs:
+                    st.error("🚨 Could not retrieve content from the URL. Please check if the URL is correct.")
+                else:
+                    # Chain for Summarization
+                    chain = load_summarize_chain(llm, chain_type="stuff", prompt=prompt)
+                    
+                    # Use invoke instead of run
+                    output_summary = chain.invoke({"input_documents": docs})
+                    
+                    st.success("✅ Summary Generated Successfully!")
+                    st.markdown(f"### 📄 Summary:\n{output_summary['output_text']}")
         except Exception as e:
             st.exception(f"⚠️ Exception: {e}")
