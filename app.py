@@ -50,12 +50,16 @@ if st.button("✨ Summarize the Content from YT or Website"):
                     )
                 docs = loader.load()
 
+                # Debugging: Print the content to verify if it is loaded correctly
                 if not docs:
                     st.error("🚨 Could not retrieve content from the URL. Please check if the URL is correct.")
                 else:
+                    st.write("### Loaded Content")
+                    st.write(docs)  # Display the loaded documents for debugging purposes
+
                     # Chain for Summarization
                     chain = load_summarize_chain(llm, chain_type="stuff", prompt=prompt)
-                    
+
                     # Use invoke instead of run
                     output_summary = chain.invoke({"input_documents": docs})
                     
